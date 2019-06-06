@@ -29,21 +29,20 @@ void main() {
 	cin >> replaceWord;
 
 	int cnt = 0;
-	int fpos = 0;
+	int fpos = 1;
 	int swSize = searchWord.size();
 	int rwSize = replaceWord.size();
 	while (1) {
-		fpos = str.find((searchWord), fpos);
-		if (str[fpos + swSize] >= 'à' && str[fpos + swSize] <= 'ÿ') {
-			fpos = 0;
-		}
-		else{
+		fpos = str.find(searchWord, fpos);
+		if (str[fpos - 1] == ' ' && str[fpos + swSize] == ' ')
+		{
 			str.erase(fpos, swSize);
 			str.insert(fpos, replaceWord);
 			fpos += rwSize;
 			cnt++;
 		}
-		
+		else fpos++;
+
 
 		if (str.find((searchWord), fpos) == str.npos) break;
 	}
