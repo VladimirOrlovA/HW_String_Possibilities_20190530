@@ -29,11 +29,19 @@ void main() {
 	cin >> replaceWord;
 
 	int cnt = 0;
-	int fpos = 1;
+	int fpos = 0;
 	int swSize = searchWord.size();
 	int rwSize = replaceWord.size();
 	while (1) {
 		fpos = str.find(searchWord, fpos);
+
+		if (fpos == 0) {
+			str.erase(fpos, swSize);
+			str.insert(fpos, replaceWord);
+			fpos += rwSize;
+			cnt++;
+		}
+
 		if (str[fpos - 1] == ' ' && str[fpos + swSize] == ' ')
 		{
 			str.erase(fpos, swSize);
@@ -41,7 +49,7 @@ void main() {
 			fpos += rwSize;
 			cnt++;
 		}
-		else fpos++;
+		fpos++;
 
 
 		if (str.find((searchWord), fpos) == str.npos) break;
