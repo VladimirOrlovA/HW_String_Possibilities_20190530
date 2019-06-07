@@ -32,27 +32,27 @@ void main() {
 	int fpos = 0;
 	int swSize = searchWord.size();
 	int rwSize = replaceWord.size();
-	while (1) {
+	while (str.find((searchWord), fpos) != str.npos){
 		fpos = str.find(searchWord, fpos);
+		cout << fpos << endl;
 
-		if (fpos == 0) {
+		// для первого слова по тексту.
+		if (fpos == 0 && (str[fpos + swSize] == ' ' || str[fpos + swSize] == '.' || str[fpos + swSize] == ',')) {
 			str.erase(fpos, swSize);
 			str.insert(fpos, replaceWord);
 			fpos += rwSize;
 			cnt++;
 		}
-
-		if (str[fpos - 1] == ' ' && str[fpos + swSize] == ' ')
-		{
+	
+		// для всех последующих слов
+		if (str[fpos - 1] == ' ' && 
+			(str[fpos + swSize] == ' ' || str[fpos + swSize] == '.' || str[fpos + swSize] == ',')){
 			str.erase(fpos, swSize);
 			str.insert(fpos, replaceWord);
 			fpos += rwSize;
-			cnt++;
+			cnt++;	
 		}
 		fpos++;
-
-
-		if (str.find((searchWord), fpos) == str.npos) break;
 	}
 	cout << "Find search word - " << cnt << endl;
 
